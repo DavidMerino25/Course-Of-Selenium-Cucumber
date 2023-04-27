@@ -9,15 +9,3 @@
 
 rootProject.name = 'CursoSelenium'
 include('app')
-plugins{
-    id 'java'
-}
-
-group 'CursoSelenium'
-version '1.0-SNAPSHOT'
-
-sourceCompatibility = 15
-
-repositories {
-    mavenCentral()
-}
