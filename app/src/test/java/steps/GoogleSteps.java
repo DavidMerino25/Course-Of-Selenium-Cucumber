@@ -9,7 +9,8 @@ public class GoogleSteps {
     
    @Given("^I am on the Google search page$")
    public void navigateToGoogle() {
-      googlePage.navigateToGoogle();
+      googlePage.navigateToGoogle(); //llamamos al metodo navigateToGoogle de la clase GooglePage
+      googlePage.clickGoogleSearch(); //llamamos al metodo clickGoogleSearch de la clase GooglePage
    }
 
    @When("^I enter a search criteria")

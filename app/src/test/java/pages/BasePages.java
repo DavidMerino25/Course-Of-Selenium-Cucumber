@@ -2,37 +2,53 @@ package pages;
 
 import java.time.Duration;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BasePages {
-    protected static WebDriver driver;
+    protected static WebDriver driver; //teenmos una variables de tipo protected para que las clases hijas puedan acceder a ella
 
-    private static WebDriverWait wait;
+    private static WebDriverWait wait; //espera explicita
 
 
     static{
-        System.setProperty("webdriver.chrome.driver", "./src/test/resources/chromedriver/chromedriver.exe");
-        ChromeOptions chromeOptions = new ChromeOptions();
+        System.setProperty("webdriver.chrome.driver", "./src/test/resources/chromedriver/chromedriver.exe"); //ruta del driver
+        ChromeOptions chromeOptions = new ChromeOptions(); //instanciamos un objeto de tipo ChromeOptions
        
-        chromeOptions.addArguments("--remote-allow-origins=*");
-        chromeOptions.addArguments("user-data-dir=C:/Users/David/AppData/Local/Google/Chrome/User Data");
-        chromeOptions.addArguments("--disable-notifications");
+        chromeOptions.addArguments("--remote-allow-origins=*"); //para que no se bloquee el navegador
+        chromeOptions.addArguments("user-data-dir=C:/Users/David/AppData/Local/Google/Chrome/User Data"); //para que no se bloquee el navegador
+        chromeOptions.addArguments("--disable-notifications"); //para que no se bloquee el navegador
        
        
-        driver = new ChromeDriver(chromeOptions);
+        driver = new ChromeDriver(chromeOptions); //instanciamos un objeto de tipo ChromeDriver y le pasamos como parametro el objeto chromeOptions
         
-        wait = new WebDriverWait(driver,Duration.ofSeconds(10));
+        wait = new WebDriverWait(driver,Duration.ofSeconds(10)); //instanciamos un objeto de tipo WebDriverWait y le pasamos como parametro el objeto driver y el tiempo de espera
     }
 
-    public BasePages(WebDriver driver){
+    public BasePages(WebDriver driver){  //constructor
         BasePages.driver = driver;
         wait = new WebDriverWait(driver,Duration.ofSeconds(10));
     }
 
-    public static void navigateTo(String url){
+    public static void navigateTo(String url){ //metodo para navegar a una url
         driver.get(url);
+    }
+
+    private WebElement findElement(String locator){ //metodo para encontrar un elemento web
+       return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator))); //retornamos un elemento web
+    }
+
+    public void clickElement(String locator){ //metodo para hacer click en un elemento web
+        findElement(locator).click();
+    }
+
+    public void writeText( String locator, String textToWrite){ //metodo para escribir texto en un elemento web
+        findElement(locator).clear(); //limpiamos el elemento web
+        findElement(locator).sendKeys(textToWrite); //escribimos en el elemento web
     }
 }
