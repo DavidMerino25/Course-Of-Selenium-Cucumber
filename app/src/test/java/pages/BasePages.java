@@ -7,8 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.*;
 
 public class BasePages {
     protected static WebDriver driver; //teenmos una variables de tipo protected para que las clases hijas puedan acceder a ella
@@ -23,7 +22,6 @@ public class BasePages {
         chromeOptions.addArguments("--remote-allow-origins=*"); //para que no se bloquee el navegador
         chromeOptions.addArguments("user-data-dir=C:/Users/David/AppData/Local/Google/Chrome/User Data"); //para que no se bloquee el navegador
         chromeOptions.addArguments("--disable-notifications"); //para que no se bloquee el navegador
-       
        
         driver = new ChromeDriver(chromeOptions); //instanciamos un objeto de tipo ChromeDriver y le pasamos como parametro el objeto chromeOptions
         
@@ -51,4 +49,20 @@ public class BasePages {
         findElement(locator).clear(); //limpiamos el elemento web
         findElement(locator).sendKeys(textToWrite); //escribimos en el elemento web
     }
+
+    public void selectDropDownByValue(String locator, String valueToSelect){ //metodo para seleccionar una opcion de un dropdown por valor
+        Select dropdown = new Select(findElement(locator)); //instanciamos un objeto de tipo Select y le pasamos como parametro el elemento web
+        dropdown.selectByValue(valueToSelect);  // indicamos que la selección será por el valor
+    }
+
+    public void selectDropDownByIndex(String locator, int valueToSelect){ //metodo para seleccionar una opcion de un dropdown por Index
+        Select dropdown = new Select(findElement(locator)); //instanciamos un objeto de tipo Select y le pasamos como parametro el elemento web
+        dropdown.selectByIndex(valueToSelect);  // indicamos que la selección será por el Index
+    }
+
+    public void selectDropDownByText(String locator, String valueToSelect){ //metodo para seleccionar una opcion de un dropdown por Index
+        Select dropdown = new Select(findElement(locator)); //instanciamos un objeto de tipo Select y le pasamos como parametro el elemento web
+        dropdown.selectByVisibleText(valueToSelect);  // indicamos que la selección será por el Index
+    }
 }
+
