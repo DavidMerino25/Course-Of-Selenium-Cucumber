@@ -1,24 +1,28 @@
 package pages;
 
 import java.time.Duration;
+import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.*;
+import org.openqa.selenium.interactions.Actions;
 
 public class BasePages {
     protected static WebDriver driver; //teenmos una variables de tipo protected para que las clases hijas puedan acceder a ella
 
     private static WebDriverWait wait; //espera explicita
 
+    private static Actions actions;//acciones
+
 
     static{
         System.setProperty("webdriver.chrome.driver", "./src/test/resources/chromedriver/chromedriver.exe"); //ruta del driver
         ChromeOptions chromeOptions = new ChromeOptions(); //instanciamos un objeto de tipo ChromeOptions
-       
         chromeOptions.addArguments("--remote-allow-origins=*"); //para que no se bloquee el navegador
         chromeOptions.addArguments("user-data-dir=C:/Users/David/AppData/Local/Google/Chrome/User Data"); //para que no se bloquee el navegador
         chromeOptions.addArguments("--disable-notifications"); //para que no se bloquee el navegador
@@ -64,5 +68,42 @@ public class BasePages {
         Select dropdown = new Select(findElement(locator)); //instanciamos un objeto de tipo Select y le pasamos como parametro el elemento web
         dropdown.selectByVisibleText(valueToSelect);  // indicamos que la selección será por el Index
     }
+
+    public void hoverOverElement(String locator){ //metodo para hacer hover sobre un elemento web
+      actions.moveToElement(findElement(locator)); //instanciamos un objeto de tipo Actions y le pasamos como parametro el elemento web
+    }
+
+    public void doubleClick( String locator){ //metodo para hacer doble click sobre un elemento web
+        actions.doubleClick(findElement(locator)); //instanciamos un objeto de tipo Actions y le pasamos como parametro el elemento web
+    }
+    public void rightClick( String locator){ //metodo para hacer click derecho sobre un elemento web
+        actions.contextClick(findElement(locator)); //instanciamos un objeto de tipo Actions y le pasamos como parametro el elemento web    
+    }
+    //Metodods par buscar una celda en una tabla
+    private WebElement cellFinder(String locator, int row, int col) { //metodo para buscar una celda en una tabla
+        WebElement htmlTableElement = findElement(locator); //instanciamos un objeto de tipo WebElement y le pasamos como parametro el elemento web
+        List<WebElement> rowElements = htmlTableElement.findElements(By.xpath(".//tr")); //creamos una lista de tipo WebElement y le asignamos el valor del elemento web
+        WebElement rowElement = rowElements.get(row-1); //creamos una variable de tipo WebElement y le asignamos el valor de la lista
+        List<WebElement> cellElements = rowElement.findElements(By.xpath(".//td"));     //creamos una lista de tipo WebElement y le asignamos el valor de la lista
+        WebElement colElement = cellElements.get(col-1); //creamos una variable de tipo WebElement y le asignamos el valor de la lista
+        return colElement; //retornamos el valor de la celda
+    }
+
+    public String getValueFromTable(String locator, int row, int column){ //metodo para obtener el valor de una tabla
+       // String cellValue = locator+"/table/tbody/tr["+row+"]/td["+column+"]"; //creamos una variable de tipo String y le asignamos el valor del elemento web
+       return cellFinder(locator, row, column).getText(); //retornamos el valor de la tabla
+    } 
+
+    public void setValueOnTable(String locator, int row, int column, String valueToSend){ //metodo para establecer un valor en una tabla
+        WebElement colElement = cellFinder(locator, row, column);
+        try {
+            colElement.sendKeys(valueToSend);
+        }
+        catch(Exception e) {
+            ((JavascriptExecutor)driver).executeScript("arguments[0].innerHTML = '"+ valueToSend +"';", colElement);
+        }
+        
+    }
 }
+
 
