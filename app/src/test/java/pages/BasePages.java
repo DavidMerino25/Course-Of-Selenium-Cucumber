@@ -28,13 +28,16 @@ public class BasePages {
         chromeOptions.addArguments("--disable-notifications"); //para que no se bloquee el navegador
        
         driver = new ChromeDriver(chromeOptions); //instanciamos un objeto de tipo ChromeDriver y le pasamos como parametro el objeto chromeOptions
-        
+        // Esto es de manera explicta para que el navegador no se bloquee
         wait = new WebDriverWait(driver,Duration.ofSeconds(10)); //instanciamos un objeto de tipo WebDriverWait y le pasamos como parametro el objeto driver y el tiempo de espera
+        // De mandra implicita (no es recomendable porque puede afectar el rendimiento del navegador)
+        //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); //instanciamos un objeto de tipo WebDriverWait y le pasamos como parametro el objeto driver y el tiempo de espera
+
     }
 
     public BasePages(WebDriver driver){  //constructor
         BasePages.driver = driver;
-        wait = new WebDriverWait(driver,Duration.ofSeconds(10));
+        wait = new WebDriverWait(driver,Duration.ofSeconds(10)); //instanciamos un objeto de tipo WebDriverWait y le pasamos como parametro el objeto driver y el tiempo de espera
     }
 
     public static void navigateTo(String url){ //metodo para navegar a una url
@@ -103,6 +106,11 @@ public class BasePages {
             ((JavascriptExecutor)driver).executeScript("arguments[0].innerHTML = '"+ valueToSend +"';", colElement);
         }
         
+    }
+
+    //Metodo para subir un archivo
+    public void uploadFile(String locator, String pathFile){ //metodo para subir un archivo
+        findElement(locator).sendKeys(pathFile); //instanciamos un objeto de tipo WebElement y le pasamos como parametro el elemento web
     }
 }
 
