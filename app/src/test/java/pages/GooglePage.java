@@ -1,9 +1,12 @@
 package pages;
 
+
+
 public class GooglePage extends BasePages{ //heredamos de la clase BasePages
 
     private String searchButton = "//input[@value='Buscar con Google']";//variable de tipo String que contiene el xpath del elemento web
     private String searchTextField ="//textarea[@id='APjFqb']"; //variable de tipo String que contiene el xpath del elemento web para buscar
+   private String firstresult ="";
     public GooglePage(){ //constructor
         super(driver);
     }
@@ -18,6 +21,9 @@ public class GooglePage extends BasePages{ //heredamos de la clase BasePages
 
     public void writeSearchCriteria(String searchCriteria){ //metodo para escribir el criterio de busqueda
         writeText(searchTextField, searchCriteria); //llamamos al metodo writeText de la clase BasePages
+    }
+    public String firstResult(){ //metodo para obtener el primer resultado de la busqueda
+        return textFromElements(firstresult); //llamamos al metodo getText de la clase BasePages
     }
 
 

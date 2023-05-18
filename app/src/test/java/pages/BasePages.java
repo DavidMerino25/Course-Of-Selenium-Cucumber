@@ -112,6 +112,28 @@ public class BasePages {
     public void uploadFile(String locator, String pathFile){ //metodo para subir un archivo
         findElement(locator).sendKeys(pathFile); //instanciamos un objeto de tipo WebElement y le pasamos como parametro el elemento web
     }
+    
+    // Metodo que nos permite cambiar a otro frame
+    public void switchToFrame(int  iFrameIndex){ //metodo para cambiar a otro frame
+        driver.switchTo().frame(iFrameIndex); //instanciamos un objeto de tipo WebElement y le pasamos como parametro el elemento web
+    }
+
+    // Metodo que nos permite cambiar al parent frame
+    public void switchToParentFrame(){ //metodo para cambiar al parent frame
+        driver.switchTo().parentFrame(); //instanciamos un objeto de tipo WebElement y le pasamos como parametro el elemento web
+    }
+    // Metodos para manejar alertas
+    public void acceptAlert(){ //metodo para aceptar una alerta
+        driver.switchTo().alert().accept(); //instanciamos un objeto de tipo WebElement y le pasamos como parametro el elemento web
+    }
+    public void dismissAlert(){ //metodo para rechazar una alerta
+        driver.switchTo().alert().dismiss(); //instanciamos un objeto de tipo WebElement y le pasamos como parametro el elemento web
+    }
+
+    public String textFromElements(String locator){ //metodo para obtener el texto de un elemento web
+        return findElement(locator).getText(); //retornamos el texto del elemento web
+    }
+    
 }
 
 
