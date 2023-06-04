@@ -2,7 +2,7 @@ package pages;
 
 public class GridTestPage extends BasePages{
     private String cell = "//body/div[@id='root']/div[1]/table[1]";
-   
+    private String firstresult ="";
     public GridTestPage(){
         super(driver);
     }
@@ -17,6 +17,14 @@ public class GridTestPage extends BasePages{
     public void setValueOnGrid(int row, int column, String value){
         setValueOnTable(cell, row, column, value);
     }
+    public String firstResult(){ //metodo para obtener el primer resultado de la busqueda
+        return textFromElements(firstresult); //llamamos al metodo getText de la clase BasePages
+    }
+    public boolean elementIsDisplayed(){
+        return isElementDisplayed(cell);
+    }
+
+
 
    
 

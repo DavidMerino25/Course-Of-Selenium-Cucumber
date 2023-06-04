@@ -9,7 +9,7 @@ Scenario: As a Test Enginee I want to retrieve te value of an static table
     Given I navigate to the static table
     When I can return the value I wanted
 
-@Test
+
 Scenario: As a Test Engineer I want to upload a file
     Given I navigate to the upload page
     When I upload a file

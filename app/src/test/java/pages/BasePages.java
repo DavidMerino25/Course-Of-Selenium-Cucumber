@@ -133,7 +133,17 @@ public class BasePages {
     public String textFromElements(String locator){ //metodo para obtener el texto de un elemento web
         return findElement(locator).getText(); //retornamos el texto del elemento web
     }
-    
+
+    public boolean isElementDisplayed(String locator){ //metodo para verificar si un elemento web esta desplegado
+        return findElement(locator).isDisplayed(); //retornamos un valor booleano
+    }
+     public boolean isElementSelected(String locator){ //metodo para verificar si un elemento web esta seleccionado
+        return findElement(locator).isSelected(); //retornamos un valor booleano    
+         }
+
+    puublic boolean isElementEnabled(String locator){ //metodo para verificar si un elemento web esta habilitado
+        return findElement(locator).isEnabled(); //retornamos un valor booleano
+    }
 }
 
 

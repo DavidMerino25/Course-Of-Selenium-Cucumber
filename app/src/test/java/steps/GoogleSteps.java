@@ -23,7 +23,7 @@ public class GoogleSteps {
 
    @Then("^The result matches the search criteria$")
    public void validateResults() {
-     Assert.assertEquals("Texto qu esperamos", googlePage.firstResult()); //llamamos al metodo firstResult de la clase GooglePage
+     Assert.assertEquals("Texto que esperamos", googlePage.firstResult()); //llamamos al metodo firstResult de la clase GooglePage
    }
 
 }
