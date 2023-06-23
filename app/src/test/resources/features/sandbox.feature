@@ -14,3 +14,9 @@ Scenario: As a Test Engineer I want to upload a file
     Given I navigate to the upload page
     When I upload a file
     Then I can see the file uploaded
+
+@Test
+Scenario: As a Test Engineer I want to validate a text is present inside the list
+    Given I navigate to the list page
+    When I shearch the list
+    Then I can find the text in the list

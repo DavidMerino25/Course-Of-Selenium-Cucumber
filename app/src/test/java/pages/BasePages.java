@@ -141,9 +141,12 @@ public class BasePages {
         return findElement(locator).isSelected(); //retornamos un valor booleano    
          }
 
-    puublic boolean isElementEnabled(String locator){ //metodo para verificar si un elemento web esta habilitado
+    public boolean isElementEnabled(String locator){ //metodo para verificar si un elemento web esta habilitado
         return findElement(locator).isEnabled(); //retornamos un valor booleano
     }
+    public List<WebElement> bringMeAllElements(String locator){ //metodo para obtener todos los elementos web
+        return driver.findElements(By.className(locator)); //retornamos una lista de elementos web
+    } 
 }
 
 
